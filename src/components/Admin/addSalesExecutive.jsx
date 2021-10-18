@@ -3,7 +3,7 @@ import Admin from '.';
 import "./addSalesExecutive.css";
 import "./addMedicine.css"
 import { connect } from 'react-redux'
-import { addSalesExecutive } from '../../actions/index'
+import { addSalesExecutive } from '../../Redux/actions'
 
 
 

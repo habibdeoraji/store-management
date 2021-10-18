@@ -1,0 +1,7 @@
+.top-menu-bar {
+    display: flex;
+    width: 30%;
+    margin: 0 auto;
+    justify-content: center;
+    padding-top: 10vh;
+}

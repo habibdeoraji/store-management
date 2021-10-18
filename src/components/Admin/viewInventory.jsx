@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Admin from '.';
 import { connect } from 'react-redux';
 import "./viewInventory.css"
-import { updateInventoryList } from '../../actions';
+import { updateInventoryList } from '../../Redux/actions';
 import UpdateInventoryDetails from './updateInventoryDetails';
-import { medicineIdForUpdate } from '../../actions';
+import { medicineIdForUpdate } from '../../Redux/actions';
 
 
 const ViewInventory = ({ inventoryList, inventory_list_after_delete_ById, medicine_id_for_update }) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./login.css";
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { adminLogin, salesLogin } from "../../actions"
+import { adminLogin, salesLogin } from "../../Redux/actions"
 
 
 

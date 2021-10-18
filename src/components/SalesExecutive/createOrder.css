@@ -76,6 +76,13 @@
     justify-content: space-between;
 }
 
+.add_to_cart_medicine {
+    width: 70%;
+    font-size: 20px;
+    padding: 1px;
+    outline: none;
+}
+
 
 /* Clear Cart  */
 .clear-cart-button {

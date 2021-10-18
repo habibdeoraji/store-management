@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import { updateInventoryDetails } from '../../actions';
+import { updateInventoryDetails } from '../../Redux/actions';
 import "./updateExecutiveDetails.css"
 
 

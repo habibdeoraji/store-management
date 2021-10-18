@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import "../SalesExecutive/viewOrders"
 import Admin from '.';
 import "./showAllOrders.css";
-import { updateAllOrders } from "../../actions/index"
+import { updateAllOrders } from "../../Redux/actions"
 
 
 const ViewOrders = ({ allOrders, orders_list_after_delete }) => {
@@ -36,9 +36,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(ViewOrders)
 
 
 const OrderById = (props) => {
-    const { customerName, contactNumber, orderId, cartItem } = props.myOrderDetails;
+    const { customerName, contactNumber, orderId, cartItem, orderDate } = props.myOrderDetails;
     const totalAmount = cartItem.reduce(function (sum, current) {
-        return sum + (current.itemQty) * 10;
+        return sum + (current.itemQty) * (current.unitPrice);
     }, 0);
     return (
         <div className="my-order-list" style={{ width: "75%" }}>
@@ -46,6 +46,7 @@ const OrderById = (props) => {
                 <p>CUSTOMER NAME: <span>{customerName}</span></p>
                 <p>CONTACT NUMBER: <span>{contactNumber}</span></p>
                 <p>ORDER ID : <span>{orderId}</span></p>
+                <p>CreatedAt : <span>{orderDate}</span></p>
             </div>
             <div className="cart-item-header ">
                 <h4 className="cart-item-name">Name</h4>
@@ -56,7 +57,7 @@ const OrderById = (props) => {
                 <div className="cart-item-details" key={Math.random()}>
                     <p className="cart-item-name">{item.itemName}</p>
                     <p>{item.itemQty}</p>
-                    <p>{item.itemQty * 10}</p>
+                    <p>{item.itemQty * item.unitPrice}</p>
                 </div>
             )}
             { <p style={{ borderTop: "1px solid gray", width: "100%", marginTop: "10px", marginBottom: 0 }}></p>}

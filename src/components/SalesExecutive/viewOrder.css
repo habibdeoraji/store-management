@@ -15,19 +15,26 @@
 }
 
 .my-order-user-details p {
-    font-size: 20px;
-    margin: 15px 10px;
-    font-weight: bold;
+    font-size: 18px;
+    margin: 15px 6px;
+    color: rgb(43, 42, 42);
+    font-weight: 500;
 }
 
 .my-order-user-details p span {
-    font-size: 20px;
+    font-size: 18px;
+    color: rgb(92, 92, 92);
     font-weight: normal;
 }
 
 .cart-item-header h4 {
     margin: 0;
     padding: 0;
+    background-color: rgb(236, 236, 236);
     border: 1px solid rgb(202, 201, 201);
     width: 33%
+}
+
+.cart-item-header {
+    width: 100%;
 }

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Admin from '.';
 import { connect } from 'react-redux';
 import "./viewTeam.css";
-import { updateTeamList } from "../../actions/index";
+import { updateTeamList } from "../../Redux/actions";
 import UpdateExecutiveDetails from './updateExecutiveDetails';
-import { userIdForUpdate } from "../../actions/index"
+import { userIdForUpdate } from "../../Redux/actions"
 
 
 const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update }) => {

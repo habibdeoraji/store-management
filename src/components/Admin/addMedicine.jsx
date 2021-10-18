@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Admin from '.';
 import "./addMedicine.css";
 import { connect } from 'react-redux'
-import { addMedicine } from '../../actions/index'
+import { addMedicine } from '../../Redux/actions'
 
 
 
