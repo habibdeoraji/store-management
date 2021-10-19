@@ -42,6 +42,7 @@ const ViewInventory = ({ inventoryList, inventory_list_after_delete_ById, medici
                 <p>Manufacturer</p>
                 <p>Price</p>
                 <p>Quantity</p>
+                <p>Sold Qty</p>
                 <p>Discount</p>
             </div>
             {inventoryList.map(item => <InventoryMedicineCard medicineDetails={item} delete_medicine_by_id={delete_medicine_by_id} key={Math.random()} update_medicine_by_id={update_medicine_by_id} />)}
@@ -68,7 +69,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ViewInventory)
 
 // Inventory Medicne card
 const InventoryMedicineCard = (props) => {
-    const { medicineName, manufacturerName, price, stock, discount, medicineId } = props.medicineDetails;
+    const { medicineName, manufacturerName, price, stock, discount, medicineId, soldQty } = props.medicineDetails;
 
 
     return (
@@ -78,6 +79,7 @@ const InventoryMedicineCard = (props) => {
                 <span className="manufacturer-name">{manufacturerName}</span>
                 <span className="medicine-price">{price}</span>
                 <span className="medicine-quantity">{stock}</span>
+                <span className="medicine-discount">{soldQty}</span>
                 <span className="medicine-discount">{discount}</span>
             </div>
             <div style={{ marginLeft: "10px", cursor: "pointer" }} onClick={() => props.delete_medicine_by_id(medicineName)} > <i className="fas fa-trash"></i></div>

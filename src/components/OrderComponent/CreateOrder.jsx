@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { createOrder, emptyCart } from "../../Redux/actions";
+import { createOrder, emptyCart, updateInventoryDetails } from "../../Redux/actions";
 import { addToCart } from "../../Redux/actions"
 // import "../SalesExecutive/createExecutiveOrder"
 
 
 
-const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId }) => {
+const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, update_sold_qty }) => {
     const executiveList = JSON.parse(localStorage.getItem('teamList')) || [];
     const medicineList = JSON.parse(localStorage.getItem('inventoryList')) || [];
     const [customerName, setCustomerName] = useState(`${executiveList[0].firstName} ${executiveList[0].lastName}`)
@@ -40,6 +40,17 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId }
         e.target[0].value = ''
         e.target[1].value = ''
 
+        // myArray.findIndex(x => x.hello === 'world')
+        // Sold Quantity
+        cartItem.map(orderItem => {
+            const indexOfMedicine = medicineList.findIndex(x => x.medicineName === orderItem.itemName);
+            console.log("orderItem", orderItem)
+            medicineList[indexOfMedicine].soldQty = parseInt(medicineList[indexOfMedicine].soldQty) + parseInt(orderItem.itemQty);
+            // console.log(medicineList[indexOfMedicine].soldQty, orderItem.itemQty)
+        })
+        localStorage.setItem('inventoryList', JSON.stringify(medicineList));
+
+        update_sold_qty(medicineList)
         create_order(orderDetails)
         var allOrders = JSON.parse(localStorage.getItem('allOrders')) || [];
         allOrders.push(orderDetails);
@@ -132,7 +143,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     create_order: (payload) => dispatch(createOrder(payload)),
     add_to_cart: (payload) => dispatch(addToCart(payload)),
-    empty_cart: () => dispatch(emptyCart())
+    empty_cart: () => dispatch(emptyCart()),
+    update_sold_qty: (payload) => dispatch(updateInventoryDetails(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder)

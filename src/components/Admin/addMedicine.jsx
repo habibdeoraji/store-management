@@ -15,7 +15,7 @@ const AddMedicine = ({ add_medicine_to_inventory }) => {
 
 
     const handleFormSubmit = (e) => {
-        const medicineDetails = { medicineName: medicineName, manufacturerName: manufacturerName, price: price, stock: stock, discount: discount, medicineId: Math.floor((Math.random() * 100000000) + 1) }
+        const medicineDetails = { medicineName: medicineName, manufacturerName: manufacturerName, price: price, stock: stock, discount: discount, medicineId: Math.floor((Math.random() * 100000000) + 1), soldQty: 0 }
 
         e.preventDefault();
         e.target[0].value = ''
@@ -49,7 +49,7 @@ const AddMedicine = ({ add_medicine_to_inventory }) => {
                 <input type="Number" className="form-control" id="medicinePrice" placeholder="price" onChange={(e) => { setPrice(e.target.value) }} />
             </div>
             <div className="form-group">
-                <label htmlFor="medicineInStock">Stock</label>
+                <label htmlFor="medicineInStock">Initial Qty</label>
                 <input type="Number" className="form-control" id="medicineInStock" placeholder="Available quantity" onChange={(e) => { setStock(e.target.value) }} />
             </div>
             <div className="form-group">

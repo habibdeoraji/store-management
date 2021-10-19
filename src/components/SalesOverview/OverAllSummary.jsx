@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import SalesPerMonth from './SalesPerMonth';
 import "./sales_overview.css"
+import TopAndBottomInSales from './TopAndBottomInSales';
 import TopMenuBar from './TopMenuBar';
+import TotalSalesChart from './TotalSalesChart';
 
 const OverAllSummary = ({ allOrders, teamList }) => {
     const [performanceData, setPerformanceData] = useState(teamList.map(person => {
@@ -15,7 +18,6 @@ const OverAllSummary = ({ allOrders, teamList }) => {
 
     allOrders.map(orderItem => {
         const indexOfCustomer = performanceData.findIndex((user) => orderItem.customerName === user.name)
-        console.log(performanceData[indexOfCustomer]);
         performanceData[indexOfCustomer].saleCount = performanceData[indexOfCustomer].saleCount + 1;
         performanceData[indexOfCustomer].totalSaleValue += orderItem.totalCartvalue;
     })
@@ -24,7 +26,10 @@ const OverAllSummary = ({ allOrders, teamList }) => {
     console.log(performanceData)
     return (<React.Fragment>
         <TopMenuBar />
-        <div style={{ width: "80%", paddingTop: "100px" }}>
+        <div style={{ width: "80%", paddingTop: "40px", display: "flex" }}>
+            <TotalSalesChart salesAllOrder={allOrders} />
+            <TopAndBottomInSales allOrders={allOrders} teamList={teamList} />
+            <SalesPerMonth />
         </div >
     </React.Fragment>);
 }

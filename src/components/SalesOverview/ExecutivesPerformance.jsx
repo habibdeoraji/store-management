@@ -15,7 +15,6 @@ const ExecutivesPerformance = ({ allOrders, teamList }) => {
 
     allOrders.map(orderItem => {
         const indexOfCustomer = performanceData.findIndex((user) => orderItem.customerName === user.name)
-        console.log(performanceData[indexOfCustomer]);
         performanceData[indexOfCustomer].saleCount = performanceData[indexOfCustomer].saleCount + 1;
         performanceData[indexOfCustomer].totalSaleValue += orderItem.totalCartvalue;
     })
@@ -25,9 +24,9 @@ const ExecutivesPerformance = ({ allOrders, teamList }) => {
     return (
         <React.Fragment>
             <TopMenuBar />
-            <div style={{ width: "80%", margin: "0px auto" }}>
-                <table class="table table-bordered" style={{ textAlign: "center" }}>
-                    <thead class="thead-light">
+            <div style={{ width: "80%", margin: "0px auto", paddingTop: "40px" }}>
+                <table className="table table-bordered" style={{ textAlign: "center" }}>
+                    <thead className="thead-light">
                         <tr>
                             <th scope="col">Executive Id</th>
                             <th scope="col">Name</th>
@@ -38,7 +37,7 @@ const ExecutivesPerformance = ({ allOrders, teamList }) => {
                     <tbody>
                         {performanceData.map(executivePerformance => {
                             const { executiveId, name, saleCount, totalSaleValue } = executivePerformance
-                            return <tr>
+                            return <tr key={executiveId}>
                                 <th scope="row">{executiveId}</th>
                                 <td>{name}</td>
                                 <td>{saleCount}</td>
