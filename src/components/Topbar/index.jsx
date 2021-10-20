@@ -7,14 +7,14 @@ import { Link } from "react-router-dom";
 
 
 
-const Topbar = ({ loginStatus, logOutAdmin }) => {
+const Topbar = ({ loginStatus, logOutAdmin, adminLogin }) => {
     const history = useHistory()
 
     return (<div className="topbar">
         <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe85XE6SrncVWlO_SYZ0mD6TV4c07-4qKMjsJ_DURer7chX7MxMKlRoYDA3RBqHApI1Eg&usqp=CAU" alt="pharmacy-management-software" /></div>
         <div className="topbar-menu">
-            <p><Link to="/admin/sales_overview/overall_summary" style={{ textDecoration: "none", color: "white" }}> Performance</Link></p>
-            <p><Link to="/admin/add_medicine" style={{ textDecoration: "none", color: "white" }}> Home</Link></p>
+            {adminLogin && loginStatus && <p> <Link to="/admin/sales_overview/overall_summary" style={{ textDecoration: "none", color: "white" }}> Performance</Link></p>}
+            {adminLogin && loginStatus && <p><Link to="/admin/add_medicine" style={{ textDecoration: "none", color: "white" }}> Home</Link></p>}
             {loginStatus && <p onClick={() => {
                 localStorage.setItem('loginStatus', false)
                 localStorage.setItem('adminLogin', false)
@@ -23,13 +23,14 @@ const Topbar = ({ loginStatus, logOutAdmin }) => {
                 logOutAdmin()
             }} style={{ cursor: 'pointer' }}>Logout</p>}
         </div>
-    </div>);
+    </div >);
 }
 
 
 
 const mapStateToProps = (state) => ({
-    loginStatus: state.loginStatus
+    loginStatus: state.loginStatus,
+    adminLogin: state.adminLogin,
 })
 
 const mapDispatchToProps = (dispatch) => ({

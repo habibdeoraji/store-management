@@ -2,30 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { createOrder, emptyCart, updateInventoryDetails } from "../../Redux/actions";
 import { addToCart } from "../../Redux/actions"
-// import "../SalesExecutive/createExecutiveOrder"
-
 
 
 const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, update_sold_qty }) => {
     const executiveList = JSON.parse(localStorage.getItem('teamList')) || [];
     const medicineList = JSON.parse(localStorage.getItem('inventoryList')) || [];
-    const [customerName, setCustomerName] = useState(`${executiveList[0].firstName} ${executiveList[0].lastName}`)
+    const [customerName, setCustomerName] = useState(executiveList.length > 0 ? `${executiveList[0].firstName} ${executiveList[0].lastName}` : "")
     const [contactNumber, setContactNumber] = useState('')
     const [addToCartQty, setAddToCartQty] = useState(0);
-    const [addToCartName, setAddToCartName] = useState(medicineList[0].medicineName);
-    const [pricePerUnit, setPricePerUnit] = useState(medicineList[0].price);
+    const [addToCartName, setAddToCartName] = useState(medicineList.length > 0 && medicineList[0].medicineName);
+    const [pricePerUnit, setPricePerUnit] = useState(medicineList.length > 0 && medicineList[0].price);
+    const [availableQty, setAvailableQty] = useState(medicineList.length > 0 && medicineList[0].stock - medicineList[0].soldQty);
 
 
     // Price per unit
     useEffect(() => {
-        console.log(medicineList, addToCartName)
         medicineList.map((medItem) => {
-            console.log(medItem, 35, addToCartName);
             if (medItem.medicineName === addToCartName) {
                 setPricePerUnit(medItem.price)
+                setAvailableQty(medItem.stock - medItem.soldQty)
             }
         });
-    }, [addToCartName])
+    }, [medicineList])
+
 
 
     const handleFormSubmit = (e) => {
@@ -40,13 +39,11 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
         e.target[0].value = ''
         e.target[1].value = ''
 
-        // myArray.findIndex(x => x.hello === 'world')
-        // Sold Quantity
+        // Sold Qty
         cartItem.map(orderItem => {
             const indexOfMedicine = medicineList.findIndex(x => x.medicineName === orderItem.itemName);
             console.log("orderItem", orderItem)
             medicineList[indexOfMedicine].soldQty = parseInt(medicineList[indexOfMedicine].soldQty) + parseInt(orderItem.itemQty);
-            // console.log(medicineList[indexOfMedicine].soldQty, orderItem.itemQty)
         })
         localStorage.setItem('inventoryList', JSON.stringify(medicineList));
 
@@ -67,8 +64,25 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
 
         cartItem = JSON.parse(localStorage.getItem('cartItem')) || [];
         cartItem.push(cartItemDetails);
-        localStorage.setItem('cartItem', JSON.stringify(cartItem));
-        add_to_cart(cartItemDetails);
+
+        // If medicine is already added in cart
+        var tota_qty = 0;
+        cartItem.map(item => {
+            if (item.itemName === addToCartName) {
+                tota_qty += parseInt(item.itemQty)
+            }
+        })
+
+        if (availableQty < tota_qty) {
+            alert("Quantity not available")
+        } else if (addToCartQty <= 0) {
+            alert("Add a valid quantity")
+        }
+        else {
+            localStorage.setItem('cartItem', JSON.stringify(cartItem));
+            add_to_cart(cartItemDetails);
+        }
+
     }
     // Total amount
     const totalAmount = cartItem.reduce(function (sum, current) {
@@ -87,8 +101,9 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
                     </select>
                 </label>
                 <label onChange={(e) => setAddToCartQty(e.target.value)}>Quantity <input type="Number" required /></label>
-                <p>Price per unit {pricePerUnit}</p>
-                <button className="btn btn-secondary" onClick={handleAddToCart}>Add to Cart</button>
+                <h5 style={{ margin: "0", padding: "0" }}>Price per unit {pricePerUnit}</h5>
+                <h5 style={{ margin: "0", padding: "0" }}>Available Qty {availableQty}</h5>
+                {(addToCartQty > availableQty) ? <button className="btn btn-secondary " onClick={handleAddToCart} disabled style={{ cursor: "not-allowed" }}>Add to Cart</button> : <button className="btn btn-secondary " onClick={handleAddToCart}>Add to Cart</button>}
             </div>
             <form className="create_order_form" onSubmit={handleFormSubmit}>
                 <div className="executive_details">

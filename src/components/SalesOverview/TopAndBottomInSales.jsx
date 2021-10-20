@@ -4,14 +4,19 @@ import React, { useState } from 'react';
 
 const TopAndBottomInSales = ({ allOrders, teamList }) => {
     const [totalSalesAmount, setTotalSalesAmount] = useState(0)
-    const [performanceData, setPerformanceData] = useState(teamList.map(person => {
+    const [performanceData, setPerformanceData] = useState(teamList.length > 0 ? teamList.map(person => {
         return {
             name: `${person.firstName} ${person.lastName}`,
             executiveId: person.salesExecutiveId,
             saleCount: 0,
             totalSaleValue: 0
         }
-    }));
+    }) : [{
+        name: '',
+        executiveId: null,
+        saleCount: 0,
+        totalSaleValue: 0
+    }]);
 
     allOrders.map(orderItem => {
         const indexOfCustomer = performanceData.findIndex((user) => orderItem.customerName === user.name)
