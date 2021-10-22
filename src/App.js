@@ -22,7 +22,6 @@ function App({ adminLogin, loginStatus, salesLogin }) {
     <div>
       <Router>
         <Topbar />
-        {console.log(adminLogin, loginStatus)}
         <Switch>
           <Route path="/" exact><Home /></Route>
           <Route path="/login" exact><Home /></Route>

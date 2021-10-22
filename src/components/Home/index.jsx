@@ -7,8 +7,7 @@ import { connect } from 'react-redux'
 
 
 const Home = ({ loginStatus, adminLogin, salesLogin }) => {
-    console.log(loginStatus);
-    console.log(loginStatus === false);
+
     return (<div>
         {adminLogin === true && loginStatus === true && <Admin />}
         {salesLogin === true && loginStatus === true && <SalesExecutive />}
