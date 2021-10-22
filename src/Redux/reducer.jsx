@@ -1,4 +1,4 @@
-import { ADD_MEDICINE, ADD_SALES_EXECUTIVE, ADD_TO_CART, ADMIN_LOGIN, ADMIN_LOGOUT, CREATE_ORDER, EMPTY_CART, MEDICINE_ID_FOR_UPDATE, SALES_LOGIN, SALES_LOGOUT, UPDATE_ALL_ORDERS, UPDATE_EXECUTIVE_DETAILS, UPDATE_INVENTORY_DETAILS, UPDATE_INVENTORY_LIST, UPDATE_TEAM_LIST, USER_ID_FOR_UPDATE } from "./actionTypes"
+import { ADD_MEDICINE, ADD_SALES_EXECUTIVE, ADD_TO_CART, ADMIN_LOGIN, ADMIN_LOGOUT, CREATE_ORDER, EMPTY_CART, MEDICINE_ID_FOR_UPDATE, SALES_LOGIN, SALES_LOGOUT, UPDATE_ALL_ORDERS, UPDATE_EXECUTIVE_DETAILS, UPDATE_INVENTORY_DETAILS, UPDATE_INVENTORY_LIST, UPDATE_TEAM_LIST, USER_ID_FOR_UPDATE, UPDATE_ALL_ORDERS_BY_EXECUTIVE } from "./actionTypes"
 
 const initialState = {
     loginStatus: localStorage.getItem('loginStatus') === 'true' ? true : false,
@@ -38,6 +38,8 @@ const loginReducer = (state = initialState, { type, payload }) => {
             return { ...state, teamList: state.teamList.filter(item => item.salesExecutiveId !== payload) }
         case UPDATE_ALL_ORDERS:
             return { ...state, allOrders: state.allOrders.filter(item => item.orderId !== payload) }
+        case UPDATE_ALL_ORDERS_BY_EXECUTIVE:
+            return { ...state, allOrders: payload }
         case UPDATE_EXECUTIVE_DETAILS:
             return { ...state, teamList: payload }
         case UPDATE_INVENTORY_DETAILS:

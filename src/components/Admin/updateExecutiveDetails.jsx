@@ -5,10 +5,9 @@ import "./updateExecutiveDetails.css"
 
 
 
-const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_details, crossClick }) => {
+const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_details, crossClick, allOrders }) => {
     userIdForUpdate = userIdForUpdate || localStorage.getItem('userIdForUpdate')
-    const userDetailsForUpdate = teamList.filter(user => user.salesExecutiveId == userIdForUpdate);
-    console.log(userDetailsForUpdate[0]);
+    const userDetailsForUpdate = teamList.filter(user => user.salesExecutiveId === userIdForUpdate);
     const { firstName, lastName, dob, gender, experience } = userDetailsForUpdate[0];
     const [updatedFirstName, setUpdatedFirstName] = useState(firstName)
     const [updatedLastName, setUpdatedLastName] = useState(lastName)
@@ -22,6 +21,16 @@ const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_de
         const indexForUpdate = teamListAfterUpdate.findIndex(item => item.salesExecutiveId === userIdForUpdate
         )
         console.log(teamListAfterUpdate)
+        // Updating all Order Details
+        allOrders.map(order => {
+            if (order.customerName === `${teamListAfterUpdate[indexForUpdate].firstName} ${teamListAfterUpdate[indexForUpdate].lastName}`) {
+                order.customerName = `${updatedFirstName} ${updatedLastName}`
+            }
+        })
+        console.log(allOrders)
+        localStorage.setItem('allOrders', JSON.stringify(allOrders))
+
+
         teamListAfterUpdate[indexForUpdate].firstName = updatedFirstName;
         teamListAfterUpdate[indexForUpdate].lastName = updatedLastName;
         teamListAfterUpdate[indexForUpdate].dob = updatedDob;
@@ -69,7 +78,8 @@ const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_de
 
 const mapStateToProps = (state) => ({
     teamList: state.teamList,
-    userIdForUpdate: state.userIdForUpdate
+    userIdForUpdate: state.userIdForUpdate,
+    allOrders: state.allOrders
 })
 
 const mapDispatchToProps = (dispatch) => ({

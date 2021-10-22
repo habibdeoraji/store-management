@@ -18,7 +18,7 @@
 .inventory_menu,
 .team_menu,
 .order_menu {
-    background-color: rgb(3, 83, 30);
+    background-color: #01485B;
     padding: 8px 10px;
     color: white;
 }

@@ -7,7 +7,7 @@ import "./updateExecutiveDetails.css"
 
 const UpdateInventoryDetails = ({ medicineIdForUpdate, inventoryList, update_inventory_details, crossClick }) => {
     medicineIdForUpdate = medicineIdForUpdate || localStorage.getItem('medicineIdForUpdate')
-    const medicineDetailsForUpdate = inventoryList.filter(user => user.medicineId == medicineIdForUpdate);
+    const medicineDetailsForUpdate = inventoryList.filter(user => user.medicineId === medicineIdForUpdate);
     const { medicineName, manufacturerName, price, stock, discount } = medicineDetailsForUpdate[0];
     const [updatedManufacturerName, setUpdatedManufacturerName] = useState(manufacturerName)
     const [updatedPrice, setUpdatedPrice] = useState(price)

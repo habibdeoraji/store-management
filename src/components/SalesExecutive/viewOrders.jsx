@@ -40,7 +40,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(ViewOrders)
 
 const OrderById = (props) => {
     const { customerName, contactNumber, orderId, cartItem, orderDate } = props.myOrderDetails;
-    // console.log(orderDate)
     const totalAmount = cartItem.reduce(function (sum, current) {
         return sum + (current.itemQty) * current.unitPrice;
     }, 0);

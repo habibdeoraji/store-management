@@ -4,14 +4,28 @@ import { connect } from 'react-redux';
 import "./viewTeam.css";
 import { updateTeamList } from "../../Redux/actions";
 import UpdateExecutiveDetails from './updateExecutiveDetails';
-import { userIdForUpdate } from "../../Redux/actions"
+import { userIdForUpdate, updateAllOrdersByExecutive } from "../../Redux/actions"
 
 
-const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update }) => {
+const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update, allOrders, update_all_orders_by_executive }) => {
     const [isUpdateForm, setIsUpdateForm] = useState(false);
 
     const delete_sales_executive_by_id = (executiveId) => {
         console.log(executiveId)
+
+        // Remove orders made by executive.
+        const teamMember = teamList.filter(item => item.salesExecutiveId === executiveId)
+
+        const aOrders = []
+        allOrders.map(order => {
+            if (order.customerName !== `${teamMember[0].firstName} ${teamMember[0].lastName}`) {
+                aOrders.push(order)
+            }
+        })
+        console.log(aOrders);
+        update_all_orders_by_executive(aOrders)
+        localStorage.setItem('allOrders', JSON.stringify(aOrders))
+
         var teamListAfterDelete = JSON.parse(localStorage.getItem('teamList')) || [];
         teamListAfterDelete = teamListAfterDelete.filter(item => item.salesExecutiveId !== executiveId)
         localStorage.setItem('teamList', JSON.stringify(teamListAfterDelete));
@@ -52,12 +66,14 @@ const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update }) => {
 
 const mapStateToProps = (state) => ({
     teamList: state.teamList,
-    userIdForUpdate: state.userIdForUpdate
+    userIdForUpdate: state.userIdForUpdate,
+    allOrders: state.allOrders
 })
 
 const mapDispatchToProps = (dispatch) => ({
     team_list_after_delete: (payload) => dispatch(updateTeamList(payload)),
-    user_id_for_update: (payload) => dispatch(userIdForUpdate(payload))
+    user_id_for_update: (payload) => dispatch(userIdForUpdate(payload)),
+    update_all_orders_by_executive: (payload) => dispatch(updateAllOrdersByExecutive(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewTeam)

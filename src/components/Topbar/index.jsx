@@ -11,10 +11,10 @@ const Topbar = ({ loginStatus, logOutAdmin, adminLogin }) => {
     const history = useHistory()
 
     return (<div className="topbar">
-        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe85XE6SrncVWlO_SYZ0mD6TV4c07-4qKMjsJ_DURer7chX7MxMKlRoYDA3RBqHApI1Eg&usqp=CAU" alt="pharmacy-management-software" /></div>
+        <div><img src="https://thehealthcaredaily.com/wp-content/uploads/2020/12/logo-latest-at-apollo-new.jpg" alt="pharmacy-management-software" /></div>
         <div className="topbar-menu">
-            {adminLogin && loginStatus && <p> <Link to="/admin/sales_overview/overall_summary" style={{ textDecoration: "none", color: "white" }}> Performance</Link></p>}
-            {adminLogin && loginStatus && <p><Link to="/admin/add_medicine" style={{ textDecoration: "none", color: "white" }}> Home</Link></p>}
+            {adminLogin && loginStatus && <p> <Link to="/admin/sales_overview/overall_summary" style={{ textDecoration: "none", color: "#01485B" }}> Performance</Link></p>}
+            {adminLogin && loginStatus && <p><Link to="/admin/add_medicine" style={{ textDecoration: "none", color: "#01485B" }}> Home</Link></p>}
             {loginStatus && <p onClick={() => {
                 localStorage.setItem('loginStatus', false)
                 localStorage.setItem('adminLogin', false)

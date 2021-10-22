@@ -112,7 +112,7 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
                         <select value={customerName} onChange={(e) => { setCustomerName(e.target.value) }} className="form-control" id="customerName" required>
 
                             {executiveList.length > 0 && executiveList.map((executiveListItem) => {
-                                return <option value={`${executiveListItem.firstName} ${executiveListItem.lastName}`}>{`${executiveListItem.firstName} ${executiveListItem.lastName}`}</option>
+                                return <option value={`${executiveListItem.firstName} ${executiveListItem.lastName}`} key={Math.random()}>{`${executiveListItem.firstName} ${executiveListItem.lastName}`}</option>
                             })}
                         </select>
                     </div>

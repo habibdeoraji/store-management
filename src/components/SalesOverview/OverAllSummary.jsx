@@ -24,7 +24,6 @@ const OverAllSummary = ({ allOrders, teamList }) => {
     })
 
 
-    console.log(performanceData)
     return (<div style={{ height: "100vh" }}>
         <TopMenuBar />
         <div style={{ width: "80%", paddingTop: "40px", display: "flex" }}>

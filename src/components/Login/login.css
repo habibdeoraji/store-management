@@ -13,6 +13,7 @@
 .login-body {
     height: 100vh;
     background-color: #a5d0f8;
+    background-color: #DCDFCE;
     padding-top: 100px;
 
 }
@@ -37,7 +38,7 @@
 
 .button {
     width: 170px;
-    border: 1px solid green;
+    border: 1px solid #01485B;
     padding: 5px 12px;
     text-align: center;
     text-decoration: none;
@@ -50,6 +51,7 @@
 
 .active_button {
     background-color: #4CAF50;
+    background-color: #01485B;
     color: white;
 }
 
