@@ -107,18 +107,18 @@ const CustomizedDot: FunctionComponent<any> = (props: any) => {
 };
 
 const SalesPerMonth = ({ allOrders }) => {
-    const salesItem = allOrders
-    useEffect(() => {
-        var monthIndexData = [4, 8, 2, 11, 7, 3, 5, 7, 5, 0, 0, 0]
-        salesItem.map(salesData => {
-            let monthIndex = salesData.orderDate && salesData.orderDate.slice(3, 5) - 1;
-            monthIndexData[monthIndex] += 1
-            monthly_sales_data[monthIndex].monthly_sales = monthIndexData[monthIndex]
-        })
+    // const salesItem = allOrders
+    // useEffect(() => {
+    //     var monthIndexData = [4, 8, 2, 11, 7, 3, 5, 7, 5, 0, 0, 0]
+    //     salesItem.map(salesData => {
+    //         let monthIndex = salesData.orderDate && salesData.orderDate.slice(3, 5) - 1;
+    //         monthIndexData[monthIndex] += 1
+    //         monthly_sales_data[monthIndex].monthly_sales = monthIndexData[monthIndex]
+    //     })
 
-    }, [allOrders]);
+    // }, [allOrders]);
 
-    console.log(monthly_sales_data);
+    // console.log(monthly_sales_data);
 
     return (
         <LineChart
