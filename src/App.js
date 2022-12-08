@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Topbar from './components/Topbar';
 import Home from './components/Home';
@@ -18,6 +18,17 @@ import ExecutivesPerformance from './components/SalesOverview/ExecutivesPerforma
 
 
 function App({ adminLogin, loginStatus, salesLogin }) {
+  const prevHomeUrl = "http://habib-store-management.herokuapp.com/";
+  const newHomeUrl = "https://habib-store-management.netlify.app/"
+
+  console.log(window.location.href)
+
+  useEffect(() => {
+    if (window.location.href === prevHomeUrl) {
+      window.open(newHomeUrl, "_self")
+    }
+  }, [])
+
   return (
     <div>
       <Router>
