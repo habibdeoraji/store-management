@@ -17,7 +17,7 @@ const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_de
     // Handle Update Details
     const handleExecutiveUpdateDetails = (e) => {
         e.preventDefault();
-        var teamListAfterUpdate = JSON.parse(localStorage.getItem('teamList')) || [];
+        let teamListAfterUpdate = JSON.parse(localStorage.getItem('teamList')) || [];
         const indexForUpdate = teamListAfterUpdate.findIndex(item => item.salesExecutiveId === userIdForUpdate
         )
         console.log(teamListAfterUpdate)
@@ -26,6 +26,7 @@ const UpdateExecutiveDetails = ({ userIdForUpdate, teamList, update_executive_de
             if (order.customerName === `${teamListAfterUpdate[indexForUpdate].firstName} ${teamListAfterUpdate[indexForUpdate].lastName}`) {
                 order.customerName = `${updatedFirstName} ${updatedLastName}`
             }
+            return order
         })
         console.log(allOrders)
         localStorage.setItem('allOrders', JSON.stringify(allOrders))

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import SalesPerMonth from './SalesPerMonth';
 import "./sales_overview.css"
@@ -8,19 +8,20 @@ import TopMenuBar from './TopMenuBar';
 import TotalSalesChart from './TotalSalesChart';
 
 const OverAllSummary = ({ allOrders, teamList }) => {
-    const [performanceData, setPerformanceData] = useState(teamList.map(person => {
+    const performanceData = teamList.map(person => {
         return {
             name: `${person.firstName} ${person.lastName}`,
             executiveId: person.salesExecutiveId,
             saleCount: 0,
             totalSaleValue: 0
         }
-    }));
+    });
 
     allOrders.map(orderItem => {
         const indexOfCustomer = performanceData.findIndex((user) => orderItem.customerName === user.name)
         performanceData[indexOfCustomer].saleCount = performanceData[indexOfCustomer].saleCount + 1;
         performanceData[indexOfCustomer].totalSaleValue += orderItem.totalCartvalue;
+        return orderItem;
     })
 
 
@@ -46,4 +47,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, null)(OverAllSummary);
-

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { createOrder, emptyCart, updateInventoryDetails } from "../../Redux/actions";
-import { addToCart } from "../../Redux/actions"
+import { createOrder, emptyCart, updateInventoryDetails, addToCart } from "../../Redux/actions";
 
 
 const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, update_sold_qty }) => {
@@ -22,7 +21,9 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
                 setPricePerUnit(medItem.price)
                 setAvailableQty(medItem.stock - medItem.soldQty)
             }
+            return medItem
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [medicineList])
 
 
@@ -44,12 +45,13 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
             const indexOfMedicine = medicineList.findIndex(x => x.medicineName === orderItem.itemName);
             console.log("orderItem", orderItem)
             medicineList[indexOfMedicine].soldQty = parseInt(medicineList[indexOfMedicine].soldQty) + parseInt(orderItem.itemQty);
+            return orderItem;
         })
         localStorage.setItem('inventoryList', JSON.stringify(medicineList));
 
         update_sold_qty(medicineList)
         create_order(orderDetails)
-        var allOrders = JSON.parse(localStorage.getItem('allOrders')) || [];
+        let allOrders = JSON.parse(localStorage.getItem('allOrders')) || [];
         allOrders.push(orderDetails);
         localStorage.setItem('allOrders', JSON.stringify(allOrders));
 
@@ -66,11 +68,12 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
         cartItem.push(cartItemDetails);
 
         // If medicine is already added in cart
-        var tota_qty = 0;
+        let tota_qty = 0;
         cartItem.map(item => {
             if (item.itemName === addToCartName) {
                 tota_qty += parseInt(item.itemQty)
             }
+            return item
         })
 
         if (availableQty < tota_qty) {
@@ -94,7 +97,7 @@ const CreateOrder = ({ create_order, add_to_cart, cartItem, empty_cart, userId, 
         <div style={{ display: "flex", justifyContent: "center" }}>
             <div className="add_to_cart">
                 <label >Medicine
-                <select value={addToCartName} onChange={(e) => setAddToCartName(e.target.value)} required className="add_to_cart_medicine">
+                    <select value={addToCartName} onChange={(e) => setAddToCartName(e.target.value)} required className="add_to_cart_medicine">
                         {medicineList.length > 0 && medicineList.map((medicineListItem) => {
                             return <option value={`${medicineListItem.medicineName}`} key={medicineListItem.medicineId} >{`${medicineListItem.medicineName}`} </option>
                         })}

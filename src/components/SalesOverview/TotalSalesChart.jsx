@@ -49,6 +49,7 @@ const TotalSalesChart = ({ salesAllOrder }) => {
             if (salesData.name === "2021") {
                 salesData.Sales_done = salesAllOrder.length;
             }
+            return salesData;
         })
 
     }, [salesAllOrder]);

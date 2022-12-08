@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 
 const TopAndBottomInSales = ({ allOrders, teamList }) => {
-    const [totalSalesAmount, setTotalSalesAmount] = useState(0)
-    const [performanceData, setPerformanceData] = useState(teamList.length > 0 ? teamList.map(person => {
+    const performanceData = teamList.length > 0 ? teamList.map(person => {
         return {
             name: `${person.firstName} ${person.lastName}`,
             executiveId: person.salesExecutiveId,
@@ -16,13 +15,13 @@ const TopAndBottomInSales = ({ allOrders, teamList }) => {
         executiveId: null,
         saleCount: 0,
         totalSaleValue: 0
-    }]);
+    }];
 
     allOrders.map(orderItem => {
         const indexOfCustomer = performanceData.findIndex((user) => orderItem.customerName === user.name)
         performanceData[indexOfCustomer].saleCount = performanceData[indexOfCustomer].saleCount + 1;
         performanceData[indexOfCustomer].totalSaleValue += orderItem.totalCartvalue;
-
+        return orderItem
     })
 
     performanceData.sort((a, b) => {

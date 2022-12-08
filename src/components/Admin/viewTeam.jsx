@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Admin from '.';
 import { connect } from 'react-redux';
 import "./viewTeam.css";
-import { updateTeamList } from "../../Redux/actions";
 import UpdateExecutiveDetails from './updateExecutiveDetails';
-import { userIdForUpdate, updateAllOrdersByExecutive } from "../../Redux/actions"
+import { userIdForUpdate, updateAllOrdersByExecutive, updateTeamList } from "../../Redux/actions"
 
 
 const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update, allOrders, update_all_orders_by_executive }) => {
@@ -21,12 +20,13 @@ const ViewTeam = ({ teamList, team_list_after_delete, user_id_for_update, allOrd
             if (order.customerName !== `${teamMember[0].firstName} ${teamMember[0].lastName}`) {
                 aOrders.push(order)
             }
+            return order
         })
         console.log(aOrders);
         update_all_orders_by_executive(aOrders)
         localStorage.setItem('allOrders', JSON.stringify(aOrders))
 
-        var teamListAfterDelete = JSON.parse(localStorage.getItem('teamList')) || [];
+        let teamListAfterDelete = JSON.parse(localStorage.getItem('teamList')) || [];
         teamListAfterDelete = teamListAfterDelete.filter(item => item.salesExecutiveId !== executiveId)
         localStorage.setItem('teamList', JSON.stringify(teamListAfterDelete));
         team_list_after_delete(executiveId)
@@ -99,5 +99,3 @@ const SalesExecutiveCard = (props) => {
         </div>
     );
 }
-
-
